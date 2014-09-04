@@ -1,6 +1,6 @@
 import math
 # If installed, use matplotlib!
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 # distances in Mpc
 r = [ 0.032, 0.034, 0.214, 0.263, 0.275, 0.275, 0.45, 0.5,
@@ -13,7 +13,7 @@ v = [ +170, +290, -130, -70,  -185, -220, +200, +290,
       +450, +500, +500, +960, +500, +850, +800, +1090 ]
 
 # Plot v versus r
-#plt.scatter(r,v)
+plt.scatter(r,v)
 
 # For checking n < 2 condition:
 #r = [0.0, 1.0]
@@ -73,4 +73,4 @@ print " Hubble's constant slope   b = {0:6.2f} +- {1:6.2f}  km/s/Mpc".format( b,
 print " Intercept with r axis     a = {0:6.2f} +- {1:6.2f}  km/s".format( a, sigma_a)
 print ' Estimated v error bar sigma =', round(sigma, 1), 'km/s'
 
-#plt.show()
+plt.show()

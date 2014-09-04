@@ -1,6 +1,6 @@
 import math
-#import numpy as np
-#import matplotlib.pyplot as plt
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 def chi_square_fit(x, y, err):
@@ -53,7 +53,7 @@ for i_mu_err_data in mu_err_data :
         print 'Error! Uncertainties are too small!'
         exit()
 
-#plt.scatter( logz_data, mu_data )
+plt.scatter( logz_data, mu_data )
 
 
 fit = chi_square_fit(logz_data, mu_data, mu_err_data)
@@ -64,4 +64,4 @@ if len(data) - 2 > 0 :
 else :
     print ' chi-square/d.o.f. undefined'
 
-#plt.show()
+plt.show()
