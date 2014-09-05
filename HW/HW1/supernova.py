@@ -55,7 +55,8 @@ for i_mu_err_data in mu_err_data :
 
 plt.scatter( logz_data, mu_data )
 
-
+''' Chi square fit takes x y and error. The x is log of redshift and y is distance modulus
+error is error in distance modulus ''' 
 fit = chi_square_fit(logz_data, mu_data, mu_err_data)
 print ' slope =', fit[1], ' +- ', fit[3]
 print ' intercept =', fit[0], '+-', fit[2]
