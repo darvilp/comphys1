@@ -3,14 +3,10 @@ import math
 import matplotlib.pyplot as plt
 import numpy
 # distances in Mpc
-r = [ 0.032, 0.034, 0.214, 0.263, 0.275, 0.275, 0.45, 0.5,
-      0.5,   0.63,  0.8,   0.9,   0.9,   0.9,   0.9,  1.0,
-      1.1,   1.1,   1.4,   1.7,   2.0,   2.0,   2.0,  2.0 ]
+r = [0.45325,0.033,1.0325,0.9,1.78,0.683333333,0.9,0.214,1.1]
 
 # velocities in km/s
-v = [ +170, +290, -130, -70,  -185, -220, +200, +290,
-      +270, +200, +300, -30,  +650, +150, +500, +920,
-      +450, +500, +500, +960, +500, +850, +800, +1090 ]
+v = [ 111.25,230,445,363.3333333,678,306.6666667,500,-130,500]
 
 # Plot v versus r
 plt.scatter(r,v)
@@ -82,5 +78,5 @@ a=math.ceil(a*100)/100
 b= math.ceil(b*100)/100
 plt.annotate('Slope='+str(b),xy=(0,1000))
 plt.annotate('Intercept='+str(a),xy=(0,900))
-plt.title("24 Nebulae")
+plt.title("9 Groups of Nebulae")
 plt.show()
