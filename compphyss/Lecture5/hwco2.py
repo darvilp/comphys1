@@ -1,5 +1,6 @@
 import math
 import matplotlib.pyplot as plt
+import cpt
 
 
 def sine_transform(data):
@@ -19,6 +20,7 @@ file.close()
 
 dates = []
 data = []
+logdata = []
 for line in lines:
     if len(line) > 4:
         try:
@@ -30,8 +32,9 @@ for line in lines:
                 
                 
                 if ppm > 0: 
+                    logdata.append(math.log(ppm))
                     data.append(ppm)
-                    dates.append(words[2])
+                    dates.append(float(words[2]))
         except ValueError:
             pass
 
@@ -40,8 +43,13 @@ print " read", len(data), "values from", file_name
 
 transform = sine_transform(data)
 
+
+
 freqs = [ float(i) for i in xrange(len(transform))]
 
+print cpt.least_squares_fit(dates, data)
+
+print cpt.least_squares_fit(dates,logdata)
 
 plt.subplot(2, 1, 1)
 plt.plot( dates, data )
@@ -51,4 +59,3 @@ plt.plot( freqs, transform )
 ax.set_yscale('log')
 
 plt.show()
-pylab sine_transform(data)
