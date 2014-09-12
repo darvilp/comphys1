@@ -23,6 +23,7 @@ for line in lines:
         try:
             year = int(line[0:4])
             if year > 1957 and year < 2013:
+                
                 words = str.split(line)
                 dates.append(words[2])
                 ppm = float(words[4])
