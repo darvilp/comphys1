@@ -1,7 +1,7 @@
 import math
 import matplotlib.pyplot as plt
 import cpt
-
+import numpy
 
 def sine_transform(data):
     """Return Fourier sine transform of a real data vector"""
@@ -46,13 +46,29 @@ transform = sine_transform(data)
 
 
 freqs = [ float(i) for i in xrange(len(transform))]
-
-print cpt.least_squares_fit(dates, data)
-
-print cpt.least_squares_fit(dates,logdata)
-
 plt.subplot(2, 1, 1)
 plt.plot( dates, data )
+
+fit=cpt.least_squares_fit(dates, data)
+print fit
+ecks= numpy.linspace(1960,2020,1000)
+why= ecks*fit[1]+fit[0]
+plt.plot(ecks,why)
+
+fit= cpt.least_squares_fit(dates,logdata)
+print fit
+
+
+why= [math.pow(math.e, elem*fit[1]+fit[0]) for elem in ecks] 
+plt.plot(ecks,why)
+
+
+fit=numpy.polyfit(dates,data,2)
+why= fit[0]*ecks**2+fit[1]*ecks+fit[2]
+plt.plot(ecks,why)
+print fit
+
+
 
 ax = plt.subplot(2, 1, 2)
 plt.plot( freqs, transform )
