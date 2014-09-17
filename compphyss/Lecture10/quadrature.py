@@ -12,6 +12,7 @@ while n1 % 2 != 0 :
 
 a = 0
 b = 2 * atan(1.0)
+
 ans1 = trapezoid(sin, a, b, n1)
 print 'Trapezoidal rule = ' + str(ans1)
 

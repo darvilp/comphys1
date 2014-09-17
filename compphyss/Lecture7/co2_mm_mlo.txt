@@ -1,6 +1,17 @@
 # --------------------------------------------------------------------
+#Pad
+#clean pad
+#fft
+#remove jitter
+#inverse fft
 # USE OF NOAA ESRL DATA
 # 
+#fitting
+#subtract fit 
+#fft
+#jitters
+#ifft
+#add fit
 # These data are made freely available to the public and the
 # scientific community in the belief that their wide dissemination
 # will lead to greater understanding and new scientific insights.
