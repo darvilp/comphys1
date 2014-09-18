@@ -4,7 +4,6 @@ from fft import fft, fft_power, ifft
 from numpy import array, real
 import math
 import time
-import cpt
 
 
 # data downloaded from http://www.sidc.be/DATA/yearssn.dat
@@ -30,7 +29,7 @@ for line in lines :
             xinput.append( xval )
         except ValueError :
             print 'bad data:',line
-yorig=yinput
+
 
 N = len(yinput)
 log2N = math.log(N, 2)
@@ -50,7 +49,6 @@ y = array( yinput )
 x = array([ float(i) for i in xrange(len(y)) ] )
 Y = fft(y)
 
-
 maxfreq = 50
 # Now smooth the data
 for iY in range(maxfreq, len(Y)-maxfreq ) :
@@ -68,21 +66,16 @@ Yre = [math.sqrt(Y[i].real**2+Y[i].imag**2) for i in xrange(len(Y))]
 ysmoothed = ifft(Y)
 ysmoothedreal = real(ysmoothed)
 
-ax1 = plt.subplot(3, 1, 1)
-print len(x)
-print len(xinput)
+ax1 = plt.subplot(2, 1, 1)
 p1, = plt.plot( x, y )
 p2, = plt.plot( x, ysmoothedreal )
 ax1.legend( [p1,p2], ['Original', 'Smoothed'] )
 
-ax2 = plt.subplot(3, 1, 2)
+ax2 = plt.subplot(2, 1, 2)
 p3, = plt.plot( powerx, powery )
 p4, = plt.plot( x, Yre )
 ax2.legend( [p3, p4], ["Power", "Magnitude"] )
 plt.yscale('log')
 
-plt.subplot(3,1,3)
-plt.plot(x,Y)
 
 plt.show()
-
