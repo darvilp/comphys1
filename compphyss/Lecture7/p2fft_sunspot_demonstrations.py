@@ -5,6 +5,7 @@ from numpy import array, real
 import math
 import time
 import cpt
+import numpy
 
 
 # data downloaded from http://www.sidc.be/DATA/yearssn.dat
@@ -31,20 +32,25 @@ for line in lines :
         except ValueError :
             print 'bad data:',line
 yorig=yinput
-
+padlength=0
 N = len(yinput)
 log2N = math.log(N, 2)
 if log2N - int(log2N) > 0.0 :
     print 'Padding with zeros!'
     pads = [0.0] * (pow(2, int(log2N)+1) - N)
     yinput = yinput + pads
+    
     N = len(yinput)
     print 'Padded : '
     print len(yinput)
+    padlength=len(pads)
     # Apply a window to reduce ringing from the 2^n cutoff
+    
     if window : 
         for iy in xrange(len(yinput)) :
             yinput[iy] = yinput[iy] * (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
+
+            
 
 y = array( yinput ) 
 x = array([ float(i) for i in xrange(len(y)) ] )
@@ -65,24 +71,47 @@ powerx = array([ float(i) for i in xrange(len(powery)) ] )
 
 Yre = [math.sqrt(Y[i].real**2+Y[i].imag**2) for i in xrange(len(Y))]
 
+
+            
+
 ysmoothed = ifft(Y)
 ysmoothedreal = real(ysmoothed)
 
-ax1 = plt.subplot(3, 1, 1)
-print len(x)
-print len(xinput)
-p1, = plt.plot( x, y )
-p2, = plt.plot( x, ysmoothedreal )
-ax1.legend( [p1,p2], ['Original', 'Smoothed'] )
+'''
+if window : 
+    for iy in range(1,len(yinput)-1) :
+        ysmoothedreal[iy] = ysmoothedreal[iy] / (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
 
-ax2 = plt.subplot(3, 1, 2)
+'''
+ax1 = plt.subplot(2, 1, 1)
+y= y[:(N-padlength)]
+ysmoothedreal= ysmoothedreal[:(N-padlength)]
+yinput=yinput[:(N-padlength)]
+
+p1, = plt.plot( xinput, y )
+p2, = plt.plot( xinput, ysmoothedreal )
+p3, = plt.plot(xinput,yorig)
+plt.xlim([1960,2013])
+ax1.legend( [p1,p2], ['Original', 'Smoothed'], loc='lower right' )
+
+ax2 = plt.subplot(2, 1, 2)
 p3, = plt.plot( powerx, powery )
 p4, = plt.plot( x, Yre )
-ax2.legend( [p3, p4], ["Power", "Magnitude"] )
+#ax2.legend( [p3, p4], ["Power", "Magnitude"] )
 plt.yscale('log')
 
-plt.subplot(3,1,3)
-plt.plot(x,Y)
 
 plt.show()
-
+#fits
+'''
+ecks= numpy.linspace(1960,2020,1000)
+fit,co=numpy.polyfit(dates,data,2,cov=True)
+why= fit[0]*ecks**2+fit[1]*ecks+fit[2]
+plt.plot(ecks,why,label='Quadratic')
+variance = sum((data[i] - (fit[0]*dates[i]**2+fit[1]*dates[i]+fit[2]))**2 for i in range(len(data)))
+variance = math.sqrt(variance)/(len(data)-2)
+print fit
+print numpy.sqrt(numpy.diag(co))
+print variance
+plt.legend(loc='upper left')
+'''
