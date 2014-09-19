@@ -10,7 +10,7 @@ if plotfirst == True :
     # make some fake data :
 
     N = 1024
-    f = 5.5
+    f = 10
     #spectral index vs
 
     x = array([ float(i) for i in xrange(N) ] )

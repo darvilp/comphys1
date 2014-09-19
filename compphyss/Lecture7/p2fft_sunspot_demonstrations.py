@@ -77,12 +77,13 @@ Yre = [math.sqrt(Y[i].real**2+Y[i].imag**2) for i in xrange(len(Y))]
 ysmoothed = ifft(Y)
 ysmoothedreal = real(ysmoothed)
 
-'''
+
 if window : 
     for iy in range(1,len(yinput)-1) :
         ysmoothedreal[iy] = ysmoothedreal[iy] / (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
+        y[iy]= y[iy] / (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
 
-'''
+
 ax1 = plt.subplot(2, 1, 1)
 y= y[:(N-padlength)]
 ysmoothedreal= ysmoothedreal[:(N-padlength)]
@@ -90,8 +91,9 @@ yinput=yinput[:(N-padlength)]
 
 p1, = plt.plot( xinput, y )
 p2, = plt.plot( xinput, ysmoothedreal )
-p3, = plt.plot(xinput,yorig)
+
 plt.xlim([1960,2013])
+plt.ylim([300,400])
 ax1.legend( [p1,p2], ['Original', 'Smoothed'], loc='lower right' )
 
 ax2 = plt.subplot(2, 1, 2)

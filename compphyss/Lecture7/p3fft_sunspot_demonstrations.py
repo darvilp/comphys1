@@ -105,12 +105,13 @@ ysmoothedreal = real(ysmoothed)
 
 
 
-'''
+
 if window : 
     for iy in range(1,len(yinput)-1) :
         ysmoothedreal[iy] = ysmoothedreal[iy] / (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
+        y[iy]= y[iy] / (0.5 - 0.5 * math.cos(2*math.pi*iy/float(N-1)))
 
-'''
+
 ax1 = plt.subplot(2, 1, 1)
 y= y[:(N-padlength)]
 ysmoothedreal= ysmoothedreal[:(N-padlength)]
@@ -121,14 +122,15 @@ y= [y[i]+(fit[0]*xinput[i]**2+xinput[i]*fit[1]+fit[2]) for i in xrange(len(ysmoo
 
 p1, = plt.plot( xinput, y )
 p2, = plt.plot( xinput, ysmoothedreal )
-#p3, = plt.plot(xinput,yorig)
+#p3, = plt.plot(xinput,ydata)
 plt.xlim([1960,2013])
+plt.ylim([300,400])
 ax1.legend( [p1,p2], ['Original', 'Smoothed'], loc='lower right' )
 
 ax2 = plt.subplot(2, 1, 2)
 p3, = plt.plot( powerx, powery )
 p4, = plt.plot( x, Yre )
-#ax2.legend( [p3, p4], ["Power", "Magnitude"] )
+ax2.legend( [p3, p4], ["Power", "Magnitude"] )
 plt.yscale('log')
 
 
