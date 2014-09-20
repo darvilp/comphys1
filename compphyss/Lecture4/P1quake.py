@@ -1,6 +1,6 @@
 import math
 import matplotlib.pyplot as plt
-
+import numpy
 # define a function to linear fit x-y data without error bars
 def least_squares_fit(x, y):
     """Perform a least-squares fit to data (x,y)
@@ -100,6 +100,7 @@ M_values = sorted(histogram.keys())
 dN_values = [histogram[M] for M in M_values]
 log10N_values = [ math.log10(sum(dN_values[i:]))
                   for i in range(len(M_values)) ]
+
 '''
 print 'log10N_values is '
 for i in xrange(len(log10N_values)) :
@@ -107,8 +108,14 @@ for i in xrange(len(log10N_values)) :
     '''
 # First plot our "home-grown" values with our least-squares
 # fit in place. 
+# perform a least square fit
+fit = least_squares_fit(M_values, log10N_values)
+ecks= numpy.linspace(3,7,1000)
+why= ecks*fit[1]+fit[0]
+
 plt.subplot( 2, 1, 1)
 plt.plot( M_values, log10N_values, 'v')
+plt.plot(ecks,why)
 plt.xlabel( 'Magnitude (M)' )
 plt.ylabel( 'log(N)' )
 
@@ -118,8 +125,8 @@ plt.hist( magvalues, bins=num_bins, range=[min(magvalues),max(magvalues)], log=T
 plt.xlabel( 'Magnitude (M)' )
 plt.ylabel( 'N' )
 
-# perform a least square fit
-fit = least_squares_fit(M_values, log10N_values)
+
+
 print ' least_squares fit to data:'
 print ' slope b = {0:6.3f} +- {1:6.3f}'.format( fit[1], fit[4])
 print ' intercept a = {0:6.3f} +- {1:6.3f}'.format( fit[0], fit[3])
