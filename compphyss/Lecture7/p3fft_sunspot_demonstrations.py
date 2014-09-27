@@ -81,7 +81,7 @@ x = array([ float(i) for i in xrange(len(y)) ] )
 Y = fft(y)
 
 
-maxfreq = 50
+maxfreq = 200
 # Now smooth the data
 for iY in range(maxfreq, len(Y)-maxfreq ) :
     Y[iY] = complex(0,0)
@@ -94,8 +94,8 @@ powery = fft_power(Y)
 powerx = array([ float(i) for i in xrange(len(powery)) ] )
 
 Yre = [math.sqrt(Y[i].real**2+Y[i].imag**2) for i in xrange(len(Y))]
-
-
+import heapq
+print powery.index(heapq.nlargest(2,powery)[1])
             
 
 ysmoothed = ifft(Y)
